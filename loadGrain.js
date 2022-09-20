@@ -35,15 +35,19 @@ function getBinCapacity (leftBarrier, rightBarrier){
 
 
 function findBarriers (levels) {
-    levels.push(0); //додаємо нульовий рівень в кінці, щоб останній рівень був опрацьований в циклі
+    //додаємо нульовий рівень на початку та в кінці, щоб перший та останній рівні могли бути опрацьованими в циклі
+    levels.unshift(0);
+    levels.push(0);
+
     let barriers = [];
     let lastBarrierHeight = 0;
     let barrierCandidates = [];
 
-    for (let i=0; i < levels.length; i++){
+    for (let i=1; i < levels.length; i++){
+        let previousLevel = levels[i-1];
         let currentLevel = levels[i];
         let nextLevel = levels[i+1];
-        if (currentLevel > nextLevel){
+        if (currentLevel >= previousLevel && currentLevel > nextLevel){
             if (currentLevel > lastBarrierHeight){
                 barriers.push(i);
                 lastBarrierHeight = currentLevel;
