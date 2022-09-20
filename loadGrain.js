@@ -53,11 +53,9 @@ function findBarriers (levels) {
                 lastBarrierHeight = currentLevel;
                 barrierCandidates = [];
             }else {
-                for (let j = barrierCandidates.length-1; j > 0; j--){
-                    if (levels[barrierCandidates[j]] < currentLevel){
-                        barrierCandidates.pop();
-                    }
-                }
+                barrierCandidates = barrierCandidates.filter(
+                    (candidate)=>levels[candidate]>currentLevel
+                )
                 barrierCandidates.push(i)
             }
         }
