@@ -6,16 +6,16 @@ function loadGrain (levels) {
 
     let totalCapacity = 0;
     let binCounter = 0;
-    let binCapacity = 0;
+    let binMaxHeight = 0;
 
     for (let i=0; i < levels.length; i++){
         if (barriers.includes(i)){
             let leftBarrier = levels[barriers[binCounter]];
             let rightBarrier = levels[barriers[binCounter+1]];
-            binCapacity = getBinCapacity(leftBarrier, rightBarrier);
+            binMaxHeight = getBinMaxHeight(leftBarrier, rightBarrier);
             binCounter++;
         }else {
-            let levelCapacity = getLevelCapacity(levels[i],binCapacity);
+            let levelCapacity = getLevelCapacity(levels[i],binMaxHeight);
             totalCapacity += levelCapacity;
         }
     }
@@ -29,7 +29,7 @@ function getLevelCapacity (level, binCapacity) {
 }
 
 
-function getBinCapacity (leftBarrier, rightBarrier){
+function getBinMaxHeight (leftBarrier, rightBarrier){
     return Math.min(leftBarrier, rightBarrier);
 }
 
@@ -66,5 +66,4 @@ function findBarriers (levels) {
         barriers = barriers.concat(barrierCandidates)
     }
     return barriers;
-
 }
